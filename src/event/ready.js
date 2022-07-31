@@ -17,10 +17,52 @@ module.exports = async (client) => {
         let guild = client.guilds.cache.get(client.config.serverID);
         const premiumRole = await guild.roles.fetch(client.config.premiumID);
         let userInRole = guild.roles.cache.get(client.config.premiumID).members.map(x => x.user.id);
-        // console.log(userInRole);
+        let nowDateMS = Date.now();
         // Check if user has prem and expirationTime
+
+        if (userInRole.length > 0) {
+            await Promise.all(
+                userInRole.map(
+                    async (user) => {
+                        const member = await guild.members.fetch(user);
+                        let subscription = await client.db.get(`premiumUser.${user}`);
+                        if (!subscription || subscription === null) {
+                            member.roles.remove(premiumRole);
+                            let logsChannel = client.channels.cache.get(client.config.logsID);
+                            logsChannel.send({
+                                embeds: [{
+                                    title: `Premium Role Removal`,
+                                    description: `Removed premium role from **${member.user.tag}** \`[Reason: user doesn't have active subscription]\``,
+                                    color: `#FF9300`,
+                                    footer: {
+                                        text: 'Powered by GrowZone',
+                                        icon_url: 'https://cdn.discordapp.com/icons/857396459392729099/a_5f4d3d9a43559fef37d5f20858fef434.gif',
+                                    }
+                                }]
+                            });
+                        }
+                        if (subscription <= nowDateMS) {
+                            await client.db.delete(`premiumUser.${user}`);
+                            member.roles.remove(premiumRole);
+                            client.logger.database(`Deleted ${member.user.tag} from premiumUser [Reason: Having expired subscription]`);
+                            let logsChannel = client.channels.cache.get(client.config.logsID);
+                            logsChannel.send({
+                                embeds: [{
+                                    title: `Premium Deletion`,
+                                    description: `Deleted **${member.user.tag}** from premiumUser \`[Reason: Having expired subscription]\``,
+                                    color: `#FF9300`,
+                                    footer: {
+                                        text: 'Powered by GrowZone',
+                                        icon_url: 'https://cdn.discordapp.com/icons/857396459392729099/a_5f4d3d9a43559fef37d5f20858fef434.gif',
+                                    }
+                                }]
+                            });
+                        }
+                    }
+                )
+            )
+        }
         if (userID.length > 0) {
-            let nowDateMS = Date.now();
             await Promise.all(
                 userID.map(
                     async (user) => {
@@ -45,29 +87,6 @@ module.exports = async (client) => {
                                 }]
                             });
                         }
-
-                        // BAGIAN SINI GW PUSING BANTU DONG :(
-                        /*
-                        console.log(userInRole);
-                        let hasSubs = await client.db.get(`premiumUser.${user}`);
-                        if (hasSubs && userHasRole) {
-                            // nonce
-                        } else {
-                            member.roles.remove(premiumRole);
-                            let logsChannel = client.channels.cache.get(client.config.logsID);
-                            logsChannel.send({
-                                embeds: [{
-                                    title: `Premium Role Removal`,
-                                    description: `Removed premium role from **${member.user.tag}** \`[Reason: No detected any active subscription]\``,
-                                    color: `#FF9300`,
-                                    footer: {
-                                        text: 'Powered by GrowZone',
-                                        icon_url: 'https://cdn.discordapp.com/icons/857396459392729099/a_5f4d3d9a43559fef37d5f20858fef434.gif',
-                                    }
-                                }]
-                            });
-                        }
-                        */
                     },
                 ),
             )
