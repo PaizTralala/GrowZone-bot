@@ -1,0 +1,9 @@
+module.exports = {
+    token: 'BOT TOKEN',
+    botID: 'APPLICATION ID',
+    prefix: 'BOT PREFIX',
+    owner: ['216282035503890442', 'OTHER OWNER ID'],
+    serverID: 'SERVER ID',
+    premiumID: 'PREMIUM ROLE ID',
+    logsID: 'LOGS CHANNEL ID'
+};

@@ -1,0 +1,22 @@
+{
+    "name": "shu-app",
+    "version": "1.0.0",
+    "description": "Shu - Discord Bot (v13)",
+    "main": "index.js",
+    "scripts": {
+        "start": "node index.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "Ritshu",
+    "license": "MIT",
+    "dependencies": {
+        "@discordjs/rest": "^0.5.0",
+        "better-sqlite3": "^7.6.1",
+        "chalk": "^4.1.2",
+        "discord.js": "^13.8.1",
+        "fs": "^0.0.1-security",
+        "moment": "^2.29.4",
+        "quick.db": "^9.0.5",
+        "util": "^0.12.4"
+    }
+}
