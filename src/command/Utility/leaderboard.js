@@ -2,7 +2,7 @@ const { MessageEmbed } = require('discord.js');
 
 module.exports = {
 	name: 'leaderboard',
-	description: 'Example lb',
+	description: 'Shows a user that have the longest subscription time!',
 	usage: '<prefix>lb ',
 	examples: ['lb'],
 	aliases: ['lb'],
