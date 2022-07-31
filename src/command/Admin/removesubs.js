@@ -1,11 +1,11 @@
 const { MessageEmbed } = require('discord.js');
 
 module.exports = {
-	name: 'addsubs',
-	description: 'Add subscription to user',
-	usage: '<prefix>addsubs <@user> [days]',
-	examples: ['addsubs @Ritshu#0228 31'],
-	aliases: ['addsub'],
+	name: 'removesubs',
+	description: 'Removes user subscription',
+	usage: '<prefix>removesubs <@user>',
+	examples: ['removesubs @Ritshu#0228'],
+	aliases: ['removesub'],
 	dir: 'Admin',
 	cooldown: 1,
 	permissions: [],
