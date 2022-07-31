@@ -45,8 +45,10 @@ module.exports = {
 
 				if (exist) {
 					let addSubs = durationMS;
-					const totalSubDate = await client.db.add(`premiumUser.${user.id}`, addSubs);
-					const totalSubDateFormatted = Math.ceil(Object.values(totalSubDate) / 1000);
+					await client.db.add(`premiumUser.${user.id}`, addSubs);
+
+					const getLatestUserDate = await client.db.get(`premiumUser.${user.id}`);
+					const formattedDate = Math.ceil(getLatestUserDate / 1000);
 
 					message.reply({
 						embeds: [
@@ -56,7 +58,7 @@ module.exports = {
 								.addFields([
 									{
 										name: 'Total premium duration',
-										value: `<t:${totalSubDateFormatted}:R> - <t:${totalSubDateFormatted}>`,
+										value: `<t:${formattedDate}:R> - <t:${formattedDate}>`,
 									},
 								]),
 						],
@@ -89,7 +91,14 @@ module.exports = {
 				}
 
 				// invalid user given
-				if (!target) return message.reply(`Please provide a valid user to add premium subscription`);
+				if (!target)
+					return message.reply({
+						embeds: [
+							embed
+								.setAuthor({ name: 'Add Subscription Status: FAILED', iconURL: message.author.displayAvatarURL({ dynamic: true }) })
+								.setDescription('Please provide a valid user to add premium subscription!'),
+						],
+					});
 
 				return target;
 			}
