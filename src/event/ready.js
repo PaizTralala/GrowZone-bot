@@ -6,17 +6,17 @@ module.exports = async (client) => {
 
 	// AUTO UPDATE RPC
 	setInterval(async function () {
-		let premEntries = await client.db.get(`premiumUser`).then(x => (Object.keys(x)));
+		let premEntries = await client.db.get(`premiumUser`).then((x) => Object.keys(x));
 		let premiumUsers = premEntries.length;
 		const guildData = client.guilds.cache.get(client.config.serverID);
-		let memberCount = guildData.members.cache.filter(member => !member.user.bot).size;
+		let memberCount = client.guilds.cache.reduce((a, g) => a + g.memberCount, 0);
 
 		const Activities = [
 			{ type: `WATCHING`, content: `${premiumUsers} Premium Users` },
 			{ type: `PLAYING`, content: `With ${memberCount} Users` },
 			{ type: `COMPETING`, content: guildData.name },
-			{ type: `LISTENING`, content: `${premiumUsers} of ${memberCount} Users` }
-		]
+			{ type: `LISTENING`, content: `${premiumUsers} out of ${memberCount} Users` },
+		];
 		const index = Math.floor(Math.random() * (Activities.length - 1) + 1);
 		client.user.setActivity(Activities[index].content, { type: Activities[index].type });
 	}, 60000);
