@@ -1,18 +1,33 @@
-const { prefix, serverId, premiumId } = require('../../config');
 const { MessageEmbed } = require('discord.js');
 
 module.exports = async (client) => {
 	client.logger.info(`[!] ${client.user.username} is now started...`);
 	client.logger.info(`[!] The bot have ${client.commands.size} commands and ${client.slash.size} (/) commands`);
-	client.user.setActivity(`14/15`, { type: 'PLAYING' });
+
+	// AUTO UPDATE RPC
+	setInterval(async function () {
+		let premEntries = await client.db.get(`premiumUser`).then(x => (Object.keys(x)));
+		let premiumUsers = premEntries.length;
+		const guildData = client.guilds.cache.get(client.config.serverID);
+		let memberCount = guildData.members.cache.filter(member => !member.user.bot).size;
+
+		const Activities = [
+			{ type: `WATCHING`, content: `${premiumUsers} Premium Users` },
+			{ type: `PLAYING`, content: `With ${memberCount} Users` },
+			{ type: `COMPETING`, content: guildData.name },
+			{ type: `LISTENING`, content: `${premiumUsers} of ${memberCount} Users` }
+		]
+		const index = Math.floor(Math.random() * (Activities.length - 1) + 1);
+		client.user.setActivity(Activities[index].content, { type: Activities[index].type });
+	}, 60000);
 
 	const embed = new MessageEmbed().setColor('#9BEEFF').setFooter({
 		text: 'Powered by GrowZone',
 		iconURL: 'https://cdn.discordapp.com/icons/857396459392729099/a_5f4d3d9a43559fef37d5f20858fef434.gif',
 	});
 
+	// AUTO PREMIUM ROLE
 	setInterval(async function () {
-		// AUTO PREMIUM ROLE
 		let premiumUser = await client.db.get(`premiumUser`);
 		if (!premiumUser || premiumUser === null) return;
 		const expirationTime = Object.values(premiumUser); // return ms date (arr)
