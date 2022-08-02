@@ -16,6 +16,11 @@ module.exports = {
 			iconURL: 'https://cdn.discordapp.com/icons/857396459392729099/a_5f4d3d9a43559fef37d5f20858fef434.gif',
 		});
 
+		const extendedPremiumEmbed = new MessageEmbed().setColor('#9BEEFF').setFooter({
+			text: 'Powered by GrowZone',
+			iconURL: 'https://cdn.discordapp.com/icons/857396459392729099/a_5f4d3d9a43559fef37d5f20858fef434.gif',
+		});
+
 		if (
 			message.member.roles.cache.find((x) => x.name === 'Administrator') ||
 			message.member.roles.cache.find((x) => x.name === 'President') ||
@@ -38,6 +43,7 @@ module.exports = {
 				});
 
 			const member = await guild.members.fetch(user.id);
+
 			if (user && duration) {
 				let durationMS = duration * 86400000;
 				let durationToDB = Date.now() + durationMS;
@@ -63,8 +69,27 @@ module.exports = {
 								]),
 						],
 					});
+
+					// Notifies the user when their premium is extended
+					user.send({
+						embeds: [
+							extendedPremiumEmbed
+								.setAuthor({ name: 'Premium Status: EXTENDED', iconURL: user.displayAvatarURL({ dynamic: true }) })
+								.setDescription('Your premium is now extended. Congrats! 🎉')
+								.addFields([
+									{
+										name: 'Your total premium duration ends',
+										value: `<t:${formattedDate}:R> - <t:${formattedDate}>`,
+									},
+								]),
+						],
+					});
 				} else {
 					await client.db.add(`premiumUser.${user.id}`, durationToDB);
+					member.roles.add(premiumRole);
+
+					const getNewSubDate = await client.db.get(`premiumUser.${user.id}`);
+					const getNewSubDateFormatted = Math.ceil(getNewSubDate / 1000);
 
 					message.reply({
 						embeds: [
@@ -74,7 +99,20 @@ module.exports = {
 						],
 					});
 
-					member.roles.add(premiumRole);
+					// Notifies the user when their premium is activated
+					user.send({
+						embeds: [
+							embed
+								.setAuthor({ name: 'Premium Status: ACTIVE', iconURL: user.displayAvatarURL({ dynamic: true }) })
+								.setDescription('Your premium is now activated. Congrats! 🎉')
+								.addFields([
+									{
+										name: 'Your premium duration ends',
+										value: `<t:${getNewSubDateFormatted}:R> - <t:${getNewSubDateFormatted}>`,
+									},
+								]),
+						],
+					});
 				}
 			}
 
