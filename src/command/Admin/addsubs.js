@@ -70,6 +70,7 @@ module.exports = {
 						],
 					});
 
+					// Notifies the user when their premium is extended
 					user.send({
 						embeds: [
 							extendedPremiumEmbed
@@ -98,6 +99,7 @@ module.exports = {
 						],
 					});
 
+					// Notifies the user when their premium is activated
 					user.send({
 						embeds: [
 							embed
