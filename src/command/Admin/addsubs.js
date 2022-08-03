@@ -120,6 +120,7 @@ module.exports = {
 
 					// Notifies the user when their premium is activated
 					try {
+						const author = message.author;
 						user.send({
 							embeds: [
 								extendedPremiumEmbed
@@ -160,7 +161,7 @@ module.exports = {
 					return message.reply({
 						embeds: [
 							embed
-								.setAuthor({ name: 'Add Subscription Status: FAILED', iconURL: author.displayAvatarURL({ dynamic: true }) })
+								.setAuthor({ name: 'Add Subscription Status: FAILED', iconURL: message.author.displayAvatarURL({ dynamic: true }) })
 								.setDescription('Please provide a valid user to add premium subscription!'),
 						],
 					});
