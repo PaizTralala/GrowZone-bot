@@ -10,7 +10,7 @@ Feel free if you want to contribute for this project, but before you contribute 
 
 - [x] DM users when subscription `ends | extended | added`
 - [ ] Command list / Help Menu
-- [ ] Slash Commands
+- [x] Slash Commands
 - [ ] Button Interaction
 - [ ] Auto Payment detection by DiscordWebhook
 - [ ] Migrating DB to Mongoose (not really important for now)
