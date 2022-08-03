@@ -1,11 +1,11 @@
 module.exports = {
 	name: 'example',
 	description: 'Very simple example of a command to understand how to use this template',
-	usage: '<prefix>example [ping]', //OPTIONAL (for the help cmd)
-	examples: ['example', 'example ping:true'], //OPTIONAL (for the help cmd)
-	dir: 'directoryName',
-	cooldown: 1, // Cooldown in seconds, by default it's 2 seconds | OPTIONAL
-	permissions: [], // OPTIONAL
+	usage: '<prefix>example [ping]',
+	examples: ['example', 'example ping:true'],
+	dir: 'slashCommand',
+	cooldown: 1,
+	permissions: [],
 	options: [
 		{
 			name: 'ping',
@@ -17,7 +17,7 @@ module.exports = {
 				{ name: 'no', value: 'false' },
 			],
 		},
-	], // OPTIONAL, (/) command options ; read https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
+	],
 
 	run: async (client, interaction) => {
 		if (interaction.options.getString('ping') === 'true') {
