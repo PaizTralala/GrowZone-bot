@@ -43,7 +43,7 @@ module.exports = {
 					],
 				});
 			if (duration > 365)
-				return message.reply('retard')
+				return message.reply('retard');
 
 			const member = await guild.members.fetch(user.id);
 
