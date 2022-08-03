@@ -102,7 +102,7 @@ module.exports = async (client) => {
 											.setFields([
 												{
 													name: 'Message',
-													value: `from now on you can't extend premium subscription and you will have to \`re-subscribe\`. thanks for supporting **GrowZone Server**`,
+													value: `From now on you can't extend premium subscription and you will have to \`re-subscribe\`. Thanks for supporting **GrowZone Server**`,
 												},
 											]),
 									],
@@ -157,7 +157,7 @@ module.exports = async (client) => {
 											.setFields([
 												{
 													name: 'Message',
-													value: `from now on you can't extend premium subscription and you will have to \`re-subscribe\`. thanks for supporting **GrowZone Server**`,
+													value: `From now on you can't extend premium subscription and you will have to \`re-subscribe\`. Thanks for supporting **GrowZone Server**`,
 												},
 											]),
 									],
