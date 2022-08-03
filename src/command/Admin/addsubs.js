@@ -120,23 +120,27 @@ module.exports = {
 					});
 					
 					// Notifies the user when their premium is activated
-					user.send({
-						embeds: [
-							embed
-								.setAuthor({ name: 'Premium Status: ACTIVE', iconURL: user.displayAvatarURL({ dynamic: true }) })
-								.setDescription('Your premium is now activated. Congrats! 🎉')
-								.addFields([
-									{
-										name: 'Your premium duration ends',
-										value: `<t:${getNewSubDateFormatted}:R> - <t:${getNewSubDateFormatted}>`,
-									},
-									{
-										name: `Premium Manager`,
-										value: `> *${author.tag}*`,
-									},
-								]),
-						],
-					});
+					try {
+						user.send({
+							embeds: [
+								embed
+									.setAuthor({ name: 'Premium Status: ACTIVE', iconURL: user.displayAvatarURL({ dynamic: true }) })
+									.setDescription('Your premium is now activated. Congrats! 🎉')
+									.addFields([
+										{
+											name: 'Your premium duration ends',
+											value: `<t:${getNewSubDateFormatted}:R> - <t:${getNewSubDateFormatted}>`,
+										},
+										{
+											name: `Premium Manager`,
+											value: `> *${author.tag}*`,
+										},
+									]),
+							],
+						});
+					} catch (err) {
+						client.logger.error(err)
+					}
 				}
 			}
 
