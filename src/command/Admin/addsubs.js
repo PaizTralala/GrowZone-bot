@@ -42,8 +42,7 @@ module.exports = {
 							.setDescription('Please provide a valid duration for the given user!'),
 					],
 				});
-			if (duration > 365)
-				return message.reply('retard');
+			if (duration > 365) return message.reply('retard');
 
 			const member = await guild.members.fetch(user.id);
 
@@ -118,12 +117,12 @@ module.exports = {
 								]),
 						],
 					});
-					
+
 					// Notifies the user when their premium is activated
 					try {
 						user.send({
 							embeds: [
-								embed
+								extendedPremiumEmbed
 									.setAuthor({ name: 'Premium Status: ACTIVE', iconURL: user.displayAvatarURL({ dynamic: true }) })
 									.setDescription('Your premium is now activated. Congrats! 🎉')
 									.addFields([
@@ -139,7 +138,7 @@ module.exports = {
 							],
 						});
 					} catch (err) {
-						client.logger.error(err)
+						client.logger.error(err);
 					}
 				}
 			}

@@ -4,6 +4,16 @@ module.exports = async (client) => {
 	client.logger.info(`[!] ${client.user.username} is now started...`);
 	client.logger.info(`[!] The bot have ${client.commands.size} commands and ${client.slash.size} (/) commands`);
 
+	// Deploying slash command
+	const getCommands = client.slash.map((x) => x);
+
+	try {
+		await client.application.commands.set(getCommands);
+		client.logger.info(`[!] Loaded ${getCommands.length} (/) commands!`);
+	} catch (err) {
+		client.logger.err(err);
+	}
+
 	// AUTO UPDATE RPC
 	setInterval(async function () {
 		let premEntries = await client.db.get(`premiumUser`).then((x) => Object.keys(x));
@@ -102,7 +112,7 @@ module.exports = async (client) => {
 											.setFields([
 												{
 													name: 'Message',
-													value: `from now on you can't extend premium subscription and you will have to \`re-subscribe\`. thanks for supporting **GrowZone Server**`,
+													value: `From now on you can't extend premium subscription and you will have to \`re-subscribe\`. Thanks for supporting **GrowZone Server**`,
 												},
 											]),
 									],
@@ -157,7 +167,7 @@ module.exports = async (client) => {
 											.setFields([
 												{
 													name: 'Message',
-													value: `from now on you can't extend premium subscription and you will have to \`re-subscribe\`. thanks for supporting **GrowZone Server**`,
+													value: `From now on you can't extend premium subscription and you will have to \`re-subscribe\`. Thanks for supporting **GrowZone Server**`,
 												},
 											]),
 									],

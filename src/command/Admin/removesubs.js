@@ -39,7 +39,6 @@ module.exports = {
 					});
 
 					// Notifies the user when their premium are forcely removed.
-					// TODO: MAKE A MODAL TO APPEAL?
 					user.send({
 						embeds: [
 							embed
