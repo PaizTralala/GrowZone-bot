@@ -28,6 +28,7 @@ module.exports = {
 		) {
 			let user = args[0];
 			user = getMember(message, args[0]).user;
+			let author = message.author;
 			let guild = client.guilds.cache.get(client.config.serverID);
 			const premiumRole = await guild.roles.fetch(client.config.premiumID);
 			if (!user) return;
@@ -41,6 +42,8 @@ module.exports = {
 							.setDescription('Please provide a valid duration for the given user!'),
 					],
 				});
+			if (duration > 365)
+				return message.reply('retard')
 
 			const member = await guild.members.fetch(user.id);
 
@@ -52,6 +55,7 @@ module.exports = {
 				if (exist) {
 					let addSubs = durationMS;
 					await client.db.add(`premiumUser.${user.id}`, addSubs);
+					await client.db.set(`premManager.${user.id}`, author.id);
 
 					const getLatestUserDate = await client.db.get(`premiumUser.${user.id}`);
 					const formattedDate = Math.ceil(getLatestUserDate / 1000);
@@ -65,6 +69,10 @@ module.exports = {
 									{
 										name: 'Total premium duration',
 										value: `<t:${formattedDate}:R> - <t:${formattedDate}>`,
+									},
+									{
+										name: `Premium Manager`,
+										value: `> *${author.tag}*`,
 									},
 								]),
 						],
@@ -81,11 +89,17 @@ module.exports = {
 										name: 'Your total premium duration ends',
 										value: `<t:${formattedDate}:R> - <t:${formattedDate}>`,
 									},
+									{
+										name: `Premium Manager`,
+										value: `> *${author.tag}*`,
+									},
 								]),
 						],
 					});
 				} else {
 					await client.db.add(`premiumUser.${user.id}`, durationToDB);
+					await client.db.set(`premManager.${user.id}`, author.id);
+
 					member.roles.add(premiumRole);
 
 					const getNewSubDate = await client.db.get(`premiumUser.${user.id}`);
@@ -95,10 +109,16 @@ module.exports = {
 						embeds: [
 							embed
 								.setAuthor({ name: 'Add Subscription Status: SUCCESS', iconURL: user.displayAvatarURL({ dynamic: true }) })
-								.setDescription(`Succesfully added \`${duration} Days\` of premium subscription to **${user.tag}**`),
+								.setDescription(`Succesfully added \`${duration} Days\` of premium subscription to **${user.tag}**`)
+								.addFields([
+									{
+										name: `Premium Manager`,
+										value: `> *${author.tag}*`,
+									},
+								]),
 						],
 					});
-
+					
 					// Notifies the user when their premium is activated
 					user.send({
 						embeds: [
@@ -109,6 +129,10 @@ module.exports = {
 									{
 										name: 'Your premium duration ends',
 										value: `<t:${getNewSubDateFormatted}:R> - <t:${getNewSubDateFormatted}>`,
+									},
+									{
+										name: `Premium Manager`,
+										value: `> *${author.tag}*`,
 									},
 								]),
 						],
@@ -133,7 +157,7 @@ module.exports = {
 					return message.reply({
 						embeds: [
 							embed
-								.setAuthor({ name: 'Add Subscription Status: FAILED', iconURL: message.author.displayAvatarURL({ dynamic: true }) })
+								.setAuthor({ name: 'Add Subscription Status: FAILED', iconURL: author.displayAvatarURL({ dynamic: true }) })
 								.setDescription('Please provide a valid user to add premium subscription!'),
 						],
 					});

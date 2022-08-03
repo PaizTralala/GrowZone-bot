@@ -30,9 +30,7 @@ module.exports = async (client) => {
 	setInterval(async function () {
 		let premiumUser = await client.db.get(`premiumUser`);
 		if (!premiumUser || premiumUser === null) return;
-		const expirationTime = Object.values(premiumUser); // return ms date (arr)
-		const userID = Object.keys(premiumUser); // return userID prem user (arr)
-		const premEntries = Object.entries(premiumUser); // return entries in array
+		const userID = Object.keys(premiumUser);
 
 		let guild = client.guilds.cache.get(client.config.serverID);
 		const premiumRole = await guild.roles.fetch(client.config.premiumID);
@@ -69,6 +67,7 @@ module.exports = async (client) => {
 					}
 					if (subscription <= nowDateMS) {
 						await client.db.delete(`premiumUser.${user}`);
+						await client.db.delete(`premManager.${user}`);
 						member.roles.remove(premiumRole);
 						client.logger.database(`Deleted ${member.user.tag} from premiumUser [Reason: Having expired subscription]`);
 						let logsChannel = client.channels.cache.get(client.config.logsID);
@@ -88,6 +87,30 @@ module.exports = async (client) => {
 									]),
 							],
 						});
+						try {
+							await client.users.fetch(user).then((user) => {
+								user.send({
+									embeds: [
+										embed
+											.setAuthor({
+												name: 'Premium Reminder: GrowZone',
+												iconURL: client.user.displayAvatarURL({
+													dynamic: true,
+												}),
+											})
+											.setDescription(`Hello **${member.user.tag}**. Your premium subscription is ended`)
+											.setFields([
+												{
+													name: 'Message',
+													value: `from now on you can't extend premium subscription and you will have to \`re-subscribe\`. thanks for supporting **GrowZone Server**`,
+												},
+											]),
+									],
+								});
+							});
+						} catch (err) {
+							client.logger.error(err);
+						}
 					}
 				}),
 			);
@@ -99,6 +122,7 @@ module.exports = async (client) => {
 					let expiredAt = await client.db.get(`premiumUser.${user}`);
 					if (nowDateMS >= expiredAt) {
 						await client.db.delete(`premiumUser.${user}`);
+						await client.db.delete(`premManager.${user}`);
 						member.roles.remove(premiumRole);
 						client.logger.database(`Deleted ${member.user.tag} from premiumUser [Reason: Having expired subscription]`);
 						let logsChannel = client.channels.cache.get(client.config.logsID);
@@ -118,6 +142,30 @@ module.exports = async (client) => {
 									]),
 							],
 						});
+						try {
+							await client.users.fetch(user).then((user) => {
+								user.send({
+									embeds: [
+										embed
+											.setAuthor({
+												name: 'Premium Reminder: GrowZone',
+												iconURL: client.user.displayAvatarURL({
+													dynamic: true,
+												}),
+											})
+											.setDescription(`Hello **${member.user.tag}**. Your premium subscription is ended`)
+											.setFields([
+												{
+													name: 'Message',
+													value: `from now on you can't extend premium subscription and you will have to \`re-subscribe\`. thanks for supporting **GrowZone Server**`,
+												},
+											]),
+									],
+								});
+							});
+						} catch (err) {
+							client.logger.error(err);
+						}
 					}
 
 					// Reminder if user's subscription almost ended
