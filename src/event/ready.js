@@ -11,7 +11,7 @@ module.exports = async (client) => {
 		await client.application.commands.set(getCommands);
 		client.logger.info(`[!] Loaded ${getCommands.length} (/) commands!`);
 	} catch (err) {
-		client.logger.err(err);
+		client.logger.error(err);
 	}
 
 	// AUTO UPDATE RPC
