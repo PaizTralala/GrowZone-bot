@@ -54,6 +54,7 @@ module.exports = async (client) => {
 					const member = await guild.members.fetch(user);
 					let subscription = await client.db.get(`premiumUser.${user}`);
 					if (!subscription || subscription === null) {
+						try {
 						member.roles.remove(premiumRole);
 
 						let logsChannel = client.channels.cache.get(client.config.logsID);
@@ -74,6 +75,9 @@ module.exports = async (client) => {
 									]),
 							],
 						});
+						} catch(e) {
+							client.logger.error(e);
+						}
 					}
 					if (subscription <= nowDateMS) {
 						await client.db.delete(`premiumUser.${user}`);
