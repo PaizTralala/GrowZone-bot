@@ -63,14 +63,14 @@ module.exports = async (client) => {
 							embeds: [
 								embed
 									.setAuthor({
-										name: 'Premium Status: REMOVED',
+										name: 'Premium Status: INVALID',
 										iconURL: member.user.displayAvatarURL({ dynamic: true }),
 									})
-									.setDescription(`Premium status for **${member.user.tag}** with id \`${member.user.id}\` has been removed.`)
+									.setDescription(`Premium ROLE has been removed from **${member.user.tag}** with id \`${member.user.id}\.`)
 									.addFields([
 										{
 											name: 'Reason',
-											value: "Provided user doesn't have any active subscription!",
+											value: "Provided user doesn't have any active/valid subscription!",
 										},
 									]),
 							],
