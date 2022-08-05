@@ -23,12 +23,12 @@ module.exports = {
 
 	/**
 	 *
-	 * @param {*} client
-	 * @param {CommandInteraction} interaction
+	 * @param { * } client
+	 * @param { CommandInteraction } interaction
 	 */
 	run: async (client, interaction) => {
 		const member = interaction.options.getMember('member');
-		const duration = interaction.options.getString('duration');
+		const duration = interaction.options.getNumber('duration');
 
 		const guild = client.guilds.cache.get(client.config.serverID);
 		const premiumRole = await guild.roles.fetch(client.config.premiumID);

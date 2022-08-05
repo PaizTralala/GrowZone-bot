@@ -17,8 +17,8 @@ module.exports = {
 
 	/**
 	 *
-	 * @param {*} client
-	 * @param {CommandInteraction} interaction
+	 * @param { * } client
+	 * @param { CommandInteraction } interaction
 	 */
 	run: async (client, interaction) => {
 		const member = interaction.options.getMember('member');
