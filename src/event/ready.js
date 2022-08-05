@@ -11,7 +11,7 @@ module.exports = async (client) => {
 		await client.application.commands.set(getCommands);
 		client.logger.info(`[!] Loaded ${getCommands.length} (/) commands!`);
 	} catch (err) {
-		client.logger.err(err);
+		client.logger.error(err);
 	}
 
 	// AUTO UPDATE RPC
@@ -54,6 +54,7 @@ module.exports = async (client) => {
 					const member = await guild.members.fetch(user);
 					let subscription = await client.db.get(`premiumUser.${user}`);
 					if (!subscription || subscription === null) {
+						try {
 						member.roles.remove(premiumRole);
 
 						let logsChannel = client.channels.cache.get(client.config.logsID);
@@ -62,18 +63,21 @@ module.exports = async (client) => {
 							embeds: [
 								embed
 									.setAuthor({
-										name: 'Premium Status: REMOVED',
+										name: 'Premium Status: INVALID',
 										iconURL: member.user.displayAvatarURL({ dynamic: true }),
 									})
-									.setDescription(`Premium status for **${member.user.tag}** with id \`${member.user.id}\` has been removed.`)
+									.setDescription(`Premium ROLE has been removed from **${member.user.tag}** with id \`${member.user.id}\.`)
 									.addFields([
 										{
 											name: 'Reason',
-											value: "Provided user doesn't have any active subscription!",
+											value: "Provided user doesn't have any active/valid subscription!",
 										},
 									]),
 							],
 						});
+						} catch(e) {
+							client.logger.error(e);
+						}
 					}
 					if (subscription <= nowDateMS) {
 						await client.db.delete(`premiumUser.${user}`);
