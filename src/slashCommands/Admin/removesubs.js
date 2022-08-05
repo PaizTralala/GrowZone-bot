@@ -9,7 +9,7 @@ module.exports = {
 	options: [
 		{
 			name: 'member',
-			description: 'Add a guild member to remove their premium status!',
+			description: 'Provide a guild member to remove their premium status!',
 			type: 6,
 			required: true,
 		},
@@ -32,7 +32,7 @@ module.exports = {
 		});
 
 		if (!member) return interaction.reply({ content: 'Cannot find that user!', ephemeral: true });
-		if (member.user.bot) return interaction.reply({ content: 'Gabisa remove premiumnya kalo membernya bot 😅', ephemeral: true });
+		if (member.user.bot) return interaction.reply({ content: 'Ngapain nyobain ke bot dah, iseng amad 😭😭', ephemeral: true });
 
 		if (interaction.member.roles.cache.find((x) => x.name === '🔑')) {
 			if (member) {

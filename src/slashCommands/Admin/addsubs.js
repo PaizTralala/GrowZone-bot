@@ -9,7 +9,7 @@ module.exports = {
 	options: [
 		{
 			name: 'member',
-			description: 'Add a guild member to give them premium status!',
+			description: 'Provide a guild member to give them premium status!',
 			type: 6,
 			required: true,
 		},
@@ -45,14 +45,14 @@ module.exports = {
 
 		if (!member) return interaction.reply({ content: 'Cannot find that user!', ephemeral: true });
 		if (member.user.bot) return interaction.reply({ content: 'Ngapain ngasi bot premium 😅😅😅', ephemeral: true });
-		if (isNaN(duration)) return interaction.reply({ content: 'Kasih hari yang bener dong 😭😭😭, angka aja jangan ada hurufnya (contoh: 31)', ephemeral: true })
+		if (isNaN(duration))
+			return interaction.reply({ content: 'Kasih hari yang bener dong 😭😭😭, angka aja jangan ada hurufnya (contoh: 31)', ephemeral: true });
 
 		if (
 			interaction.member.roles.cache.find((x) => x.name === 'Administrator') ||
 			interaction.member.roles.cache.find((x) => x.name === 'President') ||
 			interaction.member.roles.cache.find((x) => x.name === '🔑')
 		) {
-
 			if (duration > 365) {
 				return interaction.reply({ content: 'Lama amat anj 🐶🐶🐶🐶', ephemeral: true });
 			}

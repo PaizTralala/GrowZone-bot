@@ -1,16 +1,18 @@
-const { MessageEmbed } = require('discord.js');
+const { MessageEmbed, CommandInteraction } = require('discord.js');
 
 module.exports = {
 	name: 'leaderboard',
 	description: 'Shows a user that have the longest subscription time!',
-	usage: '<prefix>lb ',
-	examples: ['lb'],
-	aliases: ['lb'],
 	dir: 'Utility',
 	cooldown: 1,
 	permissions: [],
 
-	run: async (client, message, args) => {
+	/**
+	 *
+	 * @param {*} client
+	 * @param {CommandInteraction} interaction
+	 */
+	run: async (client, interaction) => {
 		const getData = await client.db.get('premiumUser');
 		const keysSorted = Object.keys(getData).sort(function (a, b) {
 			return getData[b] - getData[a];
@@ -31,7 +33,7 @@ module.exports = {
 		}
 
 		const embed = new MessageEmbed()
-			.setAuthor({ name: 'Top 10 Leaderboard', iconURL: message.author.displayAvatarURL({ dynamic: true }) })
+			.setAuthor({ name: 'Top 10 Leaderboard', iconURL: interaction.user.displayAvatarURL({ dynamic: true }) })
 			.setDescription(
 				['This leaderboard are based from a user that have the longest subscription time!', '', arr.slice(0, 10).join('\n')].join('\n'),
 			)
@@ -41,6 +43,6 @@ module.exports = {
 				iconURL: 'https://cdn.discordapp.com/icons/857396459392729099/a_5f4d3d9a43559fef37d5f20858fef434.gif',
 			});
 
-		message.reply({ embeds: [embed] });
+		interaction.reply({ embeds: [embed] });
 	},
 };
