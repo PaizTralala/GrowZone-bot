@@ -52,15 +52,6 @@ module.exports = {
 			interaction.member.roles.cache.find((x) => x.name === 'President') ||
 			interaction.member.roles.cache.find((x) => x.name === '🔑')
 		) {
-			if (isNaN(duration)) {
-				return interaction.reply({
-					embeds: [
-						embed
-							.setAuthor({ name: 'Add Subscription Status: FAILED', iconURL: member.user.displayAvatarURL({ dynamic: true }) })
-							.setDescription('Please provide a valid duration for the given user!'),
-					],
-				});
-			}
 
 			if (duration > 365) {
 				return interaction.reply({ content: 'Lama amat anj 🐶🐶🐶🐶', ephemeral: true });
