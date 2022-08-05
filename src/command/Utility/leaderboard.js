@@ -26,6 +26,10 @@ module.exports = {
 			}),
 		);
 
+		if (arr.length === 0) {
+			arr.push(`There are currently no user that have a premium!`);
+		}
+
 		const embed = new MessageEmbed()
 			.setAuthor({ name: 'Top 10 Leaderboard', iconURL: message.author.displayAvatarURL({ dynamic: true }) })
 			.setDescription(
