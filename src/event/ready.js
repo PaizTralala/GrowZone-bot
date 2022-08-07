@@ -134,6 +134,30 @@ module.exports = async (client) => {
 				userID.map(async (user) => {
 					const member = await guild.members.fetch(user);
 					let expiredAt = await client.db.get(`premiumUser.${user}`);
+					if (!userInRole.includes(user)) {
+						try {
+							member.roles.add(premiumRole);
+							let logsChannel = client.channels.cache.get(client.config.logsID);
+							logsChannel.send({
+								embeds: [
+									embed
+										.setAuthor({
+											name: 'Premium Status: VALID',
+											iconURL: member.user.displayAvatarURL({ dynamic: true }),
+										})
+										.setDescription(`Premium ROLE has been added to **${member.user.tag}** with id \`${member.user.id}\.`)
+										.addFields([
+											{
+												name: 'Reason',
+												value: "Provided user have active subscription but the premium role didn't added yet!",
+											},
+										]),
+								],
+							});
+						} catch (e) {
+							client.logger.error(e);
+						}
+					}
 					if (nowDateMS >= expiredAt) {
 						await client.db.delete(`premiumUser.${user}`);
 						await client.db.delete(`premManager.${user}`);
