@@ -145,7 +145,7 @@ module.exports = async (client) => {
 											name: 'Premium Status: VALID',
 											iconURL: member.user.displayAvatarURL({ dynamic: true }),
 										})
-										.setDescription(`Premium ROLE has been added to **${member.user.tag}** with id \`${member.user.id}\.`)
+										.setDescription(`Premium ROLE has been added to **${member.user.tag}** with id \`${member.user.id}\`.`)
 										.addFields([
 											{
 												name: 'Reason',
