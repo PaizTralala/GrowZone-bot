@@ -134,7 +134,7 @@ module.exports = async (client) => {
 				userID.map(async (user) => {
 					const member = await guild.members.fetch(user);
 					let expiredAt = await client.db.get(`premiumUser.${user}`);
-					if (!userInRole.includes(user)) {
+					if (!member.roles.cache.find((x) => x.id === client.config.premiumID)) {
 						try {
 							member.roles.add(premiumRole);
 							let logsChannel = client.channels.cache.get(client.config.logsID);
