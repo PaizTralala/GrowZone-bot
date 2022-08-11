@@ -11,8 +11,8 @@ module.exports = {
 			name: 'member',
 			description: 'Provide a guild member to show their premium duration!',
 			type: 6,
-			required: false,
-		},
+			required: false
+		}
 	],
 
 	/**
@@ -23,7 +23,7 @@ module.exports = {
 	run: async (client, interaction) => {
 		const embed = new MessageEmbed().setColor('#9BEEFF').setFooter({
 			text: 'Powered by GrowZone',
-			iconURL: 'https://cdn.discordapp.com/icons/857396459392729099/a_5f4d3d9a43559fef37d5f20858fef434.gif',
+			iconURL: 'https://cdn.discordapp.com/icons/857396459392729099/a_5f4d3d9a43559fef37d5f20858fef434.gif'
 		});
 
 		let member = interaction.options.getMember('member');
@@ -39,8 +39,8 @@ module.exports = {
 				embeds: [
 					embed
 						.setAuthor({ name: 'Subscription Status: FAILED', iconURL: member.user.displayAvatarURL({ dynamic: true }) })
-						.setDescription(`User with tag **${member.user.tag}** doesn't have any active subscription!`),
-				],
+						.setDescription(`User with tag **${member.user.tag}** doesn't have any active subscription!`)
+				]
 			});
 		}
 
@@ -51,8 +51,8 @@ module.exports = {
 			embeds: [
 				embed
 					.setAuthor({ name: `Subscription information for: ${member.user.tag}`, iconURL: member.user.displayAvatarURL({ dynamic: true }) })
-					.setDescription(`Subscription ends <t:${premiumEndsInFormatted}:R> - <t:${premiumEndsInFormatted}>`),
-			],
+					.setDescription(`Subscription ends <t:${premiumEndsInFormatted}:R> - <t:${premiumEndsInFormatted}>`)
+			]
 		});
-	},
+	}
 };

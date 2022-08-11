@@ -11,14 +11,14 @@ module.exports = {
 			name: 'member',
 			description: 'Provide a guild member to give them premium status!',
 			type: 6,
-			required: true,
+			required: true
 		},
 		{
 			name: 'duration',
 			description: 'Input a duration (days)',
 			type: 3,
-			required: true,
-		},
+			required: true
+		}
 	],
 
 	/**
@@ -35,12 +35,12 @@ module.exports = {
 
 		const embed = new MessageEmbed().setColor('#9BEEFF').setFooter({
 			text: 'Powered by GrowZone',
-			iconURL: 'https://cdn.discordapp.com/icons/857396459392729099/a_5f4d3d9a43559fef37d5f20858fef434.gif',
+			iconURL: 'https://cdn.discordapp.com/icons/857396459392729099/a_5f4d3d9a43559fef37d5f20858fef434.gif'
 		});
 
 		const extendedPremiumEmbed = new MessageEmbed().setColor('#9BEEFF').setFooter({
 			text: 'Powered by GrowZone',
-			iconURL: 'https://cdn.discordapp.com/icons/857396459392729099/a_5f4d3d9a43559fef37d5f20858fef434.gif',
+			iconURL: 'https://cdn.discordapp.com/icons/857396459392729099/a_5f4d3d9a43559fef37d5f20858fef434.gif'
 		});
 
 		if (!member) return interaction.reply({ content: 'Cannot find that user!', ephemeral: true });
@@ -78,14 +78,14 @@ module.exports = {
 								.addFields([
 									{
 										name: 'Total premium duration',
-										value: `<t:${formattedDate}:R> - <t:${formattedDate}>`,
+										value: `<t:${formattedDate}:R> - <t:${formattedDate}>`
 									},
 									{
 										name: `Premium Manager`,
-										value: `> *${interaction.user.tag}*`,
-									},
-								]),
-						],
+										value: `> *${interaction.user.tag}*`
+									}
+								])
+						]
 					});
 
 					// Notifies the user when their premium is extended
@@ -97,14 +97,14 @@ module.exports = {
 								.addFields([
 									{
 										name: 'Your total premium duration ends',
-										value: `<t:${formattedDate}:R> - <t:${formattedDate}>`,
+										value: `<t:${formattedDate}:R> - <t:${formattedDate}>`
 									},
 									{
 										name: `Premium Manager`,
-										value: `> *${interaction.user.tag}*`,
-									},
-								]),
-						],
+										value: `> *${interaction.user.tag}*`
+									}
+								])
+						]
 					});
 				} else {
 					await client.db.add(`premiumUser.${member.user.id}`, durationToDB);
@@ -123,10 +123,10 @@ module.exports = {
 								.addFields([
 									{
 										name: `Premium Manager`,
-										value: `> *${interaction.user.tag}*`,
-									},
-								]),
-						],
+										value: `> *${interaction.user.tag}*`
+									}
+								])
+						]
 					});
 
 					// Notifies the user when their premium is activated
@@ -139,14 +139,14 @@ module.exports = {
 									.addFields([
 										{
 											name: 'Your premium duration ends',
-											value: `<t:${getNewSubDateFormatted}:R> - <t:${getNewSubDateFormatted}>`,
+											value: `<t:${getNewSubDateFormatted}:R> - <t:${getNewSubDateFormatted}>`
 										},
 										{
 											name: `Premium Manager`,
-											value: `> *${interaction.user.tag}*`,
-										},
-									]),
-							],
+											value: `> *${interaction.user.tag}*`
+										}
+									])
+							]
 						});
 					} catch (err) {
 						client.logger.error(err);
@@ -154,5 +154,5 @@ module.exports = {
 				}
 			}
 		}
-	},
+	}
 };

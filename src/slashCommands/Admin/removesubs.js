@@ -11,8 +11,8 @@ module.exports = {
 			name: 'member',
 			description: 'Provide a guild member to remove their premium status!',
 			type: 6,
-			required: true,
-		},
+			required: true
+		}
 	],
 
 	/**
@@ -28,7 +28,7 @@ module.exports = {
 
 		const embed = new MessageEmbed().setColor('#9BEEFF').setFooter({
 			text: 'Powered by GrowZone',
-			iconURL: 'https://cdn.discordapp.com/icons/857396459392729099/a_5f4d3d9a43559fef37d5f20858fef434.gif',
+			iconURL: 'https://cdn.discordapp.com/icons/857396459392729099/a_5f4d3d9a43559fef37d5f20858fef434.gif'
 		});
 
 		if (!member) return interaction.reply({ content: 'Cannot find that user!', ephemeral: true });
@@ -46,8 +46,8 @@ module.exports = {
 						embeds: [
 							embed
 								.setAuthor({ name: 'Delete Subscription Status: SUCCESS', iconURL: member.user.displayAvatarURL({ dynamic: true }) })
-								.setDescription(`Succesfully deleted **${member.user.tag}** from premium user`),
-						],
+								.setDescription(`Succesfully deleted **${member.user.tag}** from premium user`)
+						]
 					});
 
 					// Notifies the user when their premium are forcely removed.
@@ -56,22 +56,22 @@ module.exports = {
 							embed
 								.setAuthor({ name: 'Premium Status: REMOVED (FORCED)', iconURL: member.user.displayAvatarURL({ dynamic: true }) })
 								.setDescription(
-									'Your premium access has been revoked. If you think this is a mistake please DM (Direct Message) @President / @Administrator.',
-								),
-						],
+									'Your premium access has been revoked. If you think this is a mistake please DM (Direct Message) @President / @Administrator.'
+								)
+						]
 					});
 				} else {
 					interaction.reply({
 						embeds: [
 							embed
 								.setAuthor({ name: 'Delete Subscription Status: FAILED', iconURL: member.user.displayAvatarURL({ dynamic: true }) })
-								.setDescription(`**${member.user.tag}** Doesn't have any active subscription!`),
-						],
+								.setDescription(`**${member.user.tag}** Doesn't have any active subscription!`)
+						]
 					});
 
 					member.roles.remove(premiumRole);
 				}
 			}
 		}
-	},
+	}
 };

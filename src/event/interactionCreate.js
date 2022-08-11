@@ -32,7 +32,7 @@ module.exports = async (client, interaction) => {
 					const timeLeft = (expirationTime - now) / 1000;
 					return interaction.reply({
 						content: `Wait ${timeLeft.toFixed(1)} more second${timeLeft.toFixed(1) < 2 ? '' : 's'} to use **${command.name}**`,
-						ephemeral: true,
+						ephemeral: true
 					});
 				}
 			}
@@ -44,7 +44,7 @@ module.exports = async (client, interaction) => {
 				if (!interaction.member.permissions.has(command.permissions)) {
 					return interaction.reply({
 						content: `You're missing permissions : ${command.permissions.map((p) => `**${p}**`).join(', ')}`,
-						ephemeral: true,
+						ephemeral: true
 					});
 				}
 			}

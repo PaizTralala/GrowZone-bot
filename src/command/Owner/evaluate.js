@@ -32,11 +32,11 @@ module.exports = {
 								fields: [
 									{
 										name: 'Type',
-										value: client.util.codeBlock(type, 'js'),
-									},
-								],
-							},
-						],
+										value: client.util.codeBlock(type, 'js')
+									}
+								]
+							}
+						]
 					});
 				} else {
 					message.channel.send({
@@ -47,11 +47,11 @@ module.exports = {
 								fields: [
 									{
 										name: 'Type',
-										value: client.util.codeBlock(type, 'js'),
-									},
-								],
-							},
-						],
+										value: client.util.codeBlock(type, 'js')
+									}
+								]
+							}
+						]
 					});
 				}
 			} catch (e) {
@@ -65,11 +65,11 @@ module.exports = {
 								fields: [
 									{
 										name: 'Type',
-										value: client.util.codeBlock(this.type, 'js'),
-									},
-								],
-							},
-						],
+										value: client.util.codeBlock(this.type, 'js')
+									}
+								]
+							}
+						]
 					});
 				} else {
 					message.channel.send({
@@ -80,14 +80,14 @@ module.exports = {
 								fields: [
 									{
 										name: 'Type',
-										value: client.util.codeBlock(this.type, 'js'),
-									},
-								],
-							},
-						],
+										value: client.util.codeBlock(this.type, 'js')
+									}
+								]
+							}
+						]
 					});
 				}
 			}
 		});
-	},
+	}
 };

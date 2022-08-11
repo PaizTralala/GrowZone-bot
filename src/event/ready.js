@@ -25,7 +25,7 @@ module.exports = async (client) => {
 			{ type: `WATCHING`, content: `${premiumUsers} Premium Users` },
 			{ type: `PLAYING`, content: `With ${memberCount} Users` },
 			{ type: `COMPETING`, content: guildData.name },
-			{ type: `LISTENING`, content: `${premiumUsers} out of ${memberCount} Users` },
+			{ type: `LISTENING`, content: `${premiumUsers} out of ${memberCount} Users` }
 		];
 		const index = Math.floor(Math.random() * (Activities.length - 1) + 1);
 		client.user.setActivity(Activities[index].content, { type: Activities[index].type });
@@ -33,7 +33,7 @@ module.exports = async (client) => {
 
 	const embed = new MessageEmbed().setColor('#9BEEFF').setFooter({
 		text: 'Powered by GrowZone',
-		iconURL: 'https://cdn.discordapp.com/icons/857396459392729099/a_5f4d3d9a43559fef37d5f20858fef434.gif',
+		iconURL: 'https://cdn.discordapp.com/icons/857396459392729099/a_5f4d3d9a43559fef37d5f20858fef434.gif'
 	});
 
 	// AUTO PREMIUM ROLE
@@ -55,27 +55,27 @@ module.exports = async (client) => {
 					let subscription = await client.db.get(`premiumUser.${user}`);
 					if (!subscription || subscription === null) {
 						try {
-						member.roles.remove(premiumRole);
+							member.roles.remove(premiumRole);
 
-						let logsChannel = client.channels.cache.get(client.config.logsID);
+							let logsChannel = client.channels.cache.get(client.config.logsID);
 
-						logsChannel.send({
-							embeds: [
-								embed
-									.setAuthor({
-										name: 'Premium Status: INVALID',
-										iconURL: member.user.displayAvatarURL({ dynamic: true }),
-									})
-									.setDescription(`Premium ROLE has been removed from **${member.user.tag}** with id \`${member.user.id}\.`)
-									.addFields([
-										{
-											name: 'Reason',
-											value: "Provided user doesn't have any active/valid subscription!",
-										},
-									]),
-							],
-						});
-						} catch(e) {
+							logsChannel.send({
+								embeds: [
+									embed
+										.setAuthor({
+											name: 'Premium Status: INVALID',
+											iconURL: member.user.displayAvatarURL({ dynamic: true })
+										})
+										.setDescription(`Premium ROLE has been removed from **${member.user.tag}** with id \`${member.user.id}\.`)
+										.addFields([
+											{
+												name: 'Reason',
+												value: "Provided user doesn't have any active/valid subscription!"
+											}
+										])
+								]
+							});
+						} catch (e) {
 							client.logger.error(e);
 						}
 					}
@@ -90,16 +90,16 @@ module.exports = async (client) => {
 								embed
 									.setAuthor({
 										name: 'Premium Status: ENDED',
-										iconURL: member.user.displayAvatarURL({ dynamic: true }),
+										iconURL: member.user.displayAvatarURL({ dynamic: true })
 									})
 									.setDescription(`Premium status for **${member.user.tag}** with id \`${member.user.id}\` has been removed.`)
 									.setFields([
 										{
 											name: 'Reason',
-											value: 'Provided user subscription has ended!',
-										},
-									]),
-							],
+											value: 'Provided user subscription has ended!'
+										}
+									])
+							]
 						});
 						try {
 							await client.users.fetch(user).then((user) => {
@@ -109,24 +109,24 @@ module.exports = async (client) => {
 											.setAuthor({
 												name: 'Premium Reminder: GrowZone',
 												iconURL: client.user.displayAvatarURL({
-													dynamic: true,
-												}),
+													dynamic: true
+												})
 											})
 											.setDescription(`Hello **${member.user.tag}**. Your premium subscription is ended`)
 											.setFields([
 												{
 													name: 'Message',
-													value: `From now on you can't extend premium subscription and you will have to \`re-subscribe\`. Thanks for supporting **GrowZone Server**`,
-												},
-											]),
-									],
+													value: `From now on you can't extend premium subscription and you will have to \`re-subscribe\`. Thanks for supporting **GrowZone Server**`
+												}
+											])
+									]
 								});
 							});
 						} catch (err) {
 							client.logger.error(err);
 						}
 					}
-				}),
+				})
 			);
 		}
 		if (userID.length > 0) {
@@ -143,16 +143,16 @@ module.exports = async (client) => {
 									embed
 										.setAuthor({
 											name: 'Premium Status: VALID',
-											iconURL: member.user.displayAvatarURL({ dynamic: true }),
+											iconURL: member.user.displayAvatarURL({ dynamic: true })
 										})
 										.setDescription(`Premium ROLE has been added to **${member.user.tag}** with id \`${member.user.id}\`.`)
 										.addFields([
 											{
 												name: 'Reason',
-												value: "Provided user have active subscription but the premium role didn't added yet!",
-											},
-										]),
-								],
+												value: "Provided user have active subscription but the premium role didn't added yet!"
+											}
+										])
+								]
 							});
 						} catch (e) {
 							client.logger.error(e);
@@ -169,16 +169,16 @@ module.exports = async (client) => {
 								embed
 									.setAuthor({
 										name: 'Premium Status: ENDED',
-										iconURL: member.user.displayAvatarURL({ dynamic: true }),
+										iconURL: member.user.displayAvatarURL({ dynamic: true })
 									})
 									.setDescription(`Premium status for **${member.user.tag}** with id \`${member.user.id}\` has been removed.`)
 									.setFields([
 										{
 											name: 'Reason',
-											value: 'Provided user subscription has ended!',
-										},
-									]),
-							],
+											value: 'Provided user subscription has ended!'
+										}
+									])
+							]
 						});
 						try {
 							await client.users.fetch(user).then((user) => {
@@ -188,17 +188,17 @@ module.exports = async (client) => {
 											.setAuthor({
 												name: 'Premium Reminder: GrowZone',
 												iconURL: client.user.displayAvatarURL({
-													dynamic: true,
-												}),
+													dynamic: true
+												})
 											})
 											.setDescription(`Hello **${member.user.tag}**. Your premium subscription is ended`)
 											.setFields([
 												{
 													name: 'Message',
-													value: `From now on you can't extend premium subscription and you will have to \`re-subscribe\`. Thanks for supporting **GrowZone Server**`,
-												},
-											]),
-									],
+													value: `From now on you can't extend premium subscription and you will have to \`re-subscribe\`. Thanks for supporting **GrowZone Server**`
+												}
+											])
+									]
 								});
 							});
 						} catch (err) {
@@ -222,16 +222,16 @@ module.exports = async (client) => {
 									embed
 										.setAuthor({
 											name: 'Premium Reminder: SENT',
-											iconURL: member.user.displayAvatarURL({ dynamic: true }),
+											iconURL: member.user.displayAvatarURL({ dynamic: true })
 										})
 										.setDescription(`Premium reminder sent to **${member.user.tag}** with id \`${member.user.id}\`.`)
 										.setFields([
 											{
 												name: `${member.user.username}'s subscription ends`,
-												value: `<t:${premiumEndsInFormatted}:R> - <t:${premiumEndsInFormatted}>`,
-											},
-										]),
-								],
+												value: `<t:${premiumEndsInFormatted}:R> - <t:${premiumEndsInFormatted}>`
+											}
+										])
+								]
 							});
 						}
 
@@ -243,24 +243,24 @@ module.exports = async (client) => {
 											.setAuthor({
 												name: 'Premium Reminder: GrowZone',
 												iconURL: client.user.displayAvatarURL({
-													dynamic: true,
-												}),
+													dynamic: true
+												})
 											})
 											.setDescription(`Hello **${member.user.tag}**. Your premium subscription is about to end`)
 											.setFields([
 												{
 													name: 'Your premium ends',
-													value: `<t:${premiumEndsInFormatted}:R> - <t:${premiumEndsInFormatted}>`,
-												},
-											]),
-									],
+													value: `<t:${premiumEndsInFormatted}:R> - <t:${premiumEndsInFormatted}>`
+												}
+											])
+									]
 								});
 							});
 						} catch (err) {
 							client.logger.error(err);
 						}
 					}
-				}),
+				})
 			);
 		}
 	}, 5000);

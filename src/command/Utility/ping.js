@@ -15,9 +15,9 @@ module.exports = {
 					{
 						color: client.color.messagecolor.cyan,
 						title: `Pinging....`,
-						description: `Calculating ping...`,
-					},
-				],
+						description: `Calculating ping...`
+					}
+				]
 			})
 			.then((messageReply) => {
 				const ping = messageReply.createdTimestamp - message.createdTimestamp;
@@ -26,10 +26,10 @@ module.exports = {
 						{
 							color: client.color.messagecolor.green,
 							title: `Pong 🏓`,
-							description: `📥 API Latency: \`${Math.round(client.ws.ping)}ms\`\n🤖 Bot Latency: \`${ping}ms\``,
-						},
-					],
+							description: `📥 API Latency: \`${Math.round(client.ws.ping)}ms\`\n🤖 Bot Latency: \`${ping}ms\``
+						}
+					]
 				});
 			});
-	},
+	}
 };
