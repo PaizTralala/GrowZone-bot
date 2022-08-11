@@ -24,11 +24,9 @@ module.exports = {
 					const getManager = await client.db.get(`premManager.${x}`);
 					const getMember = await client.users.fetch(x);
 
-					arr.push(
-						`\`[${i + 1}]\` - **${getMember.tag}** - <t:${Math.ceil(getUserData / 1000)}:R> -> \`Managed by:\` *<@${
-							getManager ? getManager : 'Unknown'
-						}>*`
-					);
+					const discordTimeStamp = `<t:${Math.ceil(getUserData / 1000)}:R>`;
+
+					arr.push(`\`[${i + 1}]\` - **${getMember.tag}** - ${discordTimeStamp} -> \`Managed by:\` ${getManager ? `<@${getManager}>` : 'Unknown!'}`);
 				})
 			);
 
@@ -47,7 +45,7 @@ module.exports = {
 						value: '`[position] - User - Duration - Manager`'
 					}
 				])
-				.setDescription(['List sorted based on longest subscription time!', '', arr.slice(0, getData.length).join('\n')].join('\n'))
+				.setDescription([arr.slice(0, getData.length).join('\n')].join('\n'))
 				.setColor('#9BEEFF')
 				.setFooter({
 					text: 'Powered by GrowZone',
