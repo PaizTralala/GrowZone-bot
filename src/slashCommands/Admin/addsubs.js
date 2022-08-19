@@ -53,11 +53,13 @@ module.exports = {
         content: 'Cannot find that user!',
         ephemeral: true,
       });
+
     if (member.user.bot)
       return interaction.reply({
         content: 'Ngapain ngasi bot premium 😅😅😅',
         ephemeral: true,
       });
+
     if (isNaN(duration))
       return interaction.reply({
         content:

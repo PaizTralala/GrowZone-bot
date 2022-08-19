@@ -6,13 +6,11 @@ const {
 } = require('discord.js');
 
 module.exports = {
-  name: 'premiumlist',
-  description:
-    'Shows all user who have premium subscription and their manager!',
-  usage: '<prefix>premiumlist',
-  examples: ['premiumlist'],
-  aliases: ['list', 'premlist'],
-  dir: 'Admin',
+  name: 'test',
+  description: 'test code',
+  usage: '<prefix>test [code]',
+  aliases: ['te'],
+  dir: 'Owner',
   cooldown: 1,
   permissions: [],
 
@@ -21,40 +19,49 @@ module.exports = {
    * @param {Client} client
    * @param {Message} message
    * @param {String[]} args
-   * @returns
    */
   run: async (client, message, args) => {
-    if (message.member.roles.cache.find((x) => x.name === '🔑')) {
-      const getData = await client.db.get('premiumUser');
-      const keysSorted = Object.keys(getData).sort(function (a, b) {
-        return getData[b] - getData[a];
-      });
-
-      let arr = [];
-      await Promise.all(
-        keysSorted.map(async (x, i) => {
-          const getUserData = await client.db.get(`premiumUser.${x}`);
-          const getManager = await client.db.get(`premManager.${x}`);
-          const getMember = await client.users.fetch(x);
-
-          const discordTimeStamp = `<t:${Math.ceil(getUserData / 1000)}:R>`;
-
-          arr.push(
-            `\`[${i + 1}]\` - **${
-              getMember.tag
-            }** - ${discordTimeStamp} -> \`Managed by:\` ${
-              getManager ? `<@${getManager}>` : 'Unknown!'
-            }`
-          );
-        })
-      );
-
-      if (arr.length === 0) {
-        arr.push(`There are currently no user that have a premium!`);
-      }
+    client.config.owner.forEach(async (owner) => {
+      let arr = [
+        'anjing',
+        'kucing',
+        'kudanil',
+        'kerbau',
+        'kambing',
+        'sapi',
+        'kuda',
+        'semut',
+        'kecoa',
+        'lipan',
+        'kaki seribu',
+        'ular',
+        'bison',
+        'unta',
+        'marmut',
+        'kelinci',
+        'jangkrik',
+        'anjing',
+        'kucing',
+        'kudanil',
+        'kerbau',
+        'kambing',
+        'sapi',
+        'kuda',
+        'semut',
+        'kecoa',
+        'lipan',
+        'kaki seribu',
+        'ular',
+        'bison',
+        'unta',
+        'marmut',
+        'kelinci',
+        'jangkrik',
+      ];
 
       const buttonNext = new MessageButton()
         .setCustomId('next-page')
+        // .setLabel('Next')
         .setEmoji('1010216829916033134')
         .setStyle('PRIMARY');
       const deleteMessage = new MessageButton()
@@ -63,6 +70,7 @@ module.exports = {
         .setStyle('DANGER');
       const buttonPrevious = new MessageButton()
         .setCustomId('previous-page')
+        // .setLabel('Previous')
         .setEmoji('1010216904457211944')
         .setStyle('PRIMARY');
 
@@ -93,18 +101,8 @@ module.exports = {
           name: 'Premium List',
           iconURL: message.author.displayAvatarURL({ dynamic: true }),
         })
-        .addFields([
-          {
-            name: 'Format',
-            value: '`[position] - User - Duration - Manager`',
-          },
-        ])
         .setDescription(groupedArr[0].join('\n'))
-        .setColor('#9BEEFF')
-        .setFooter({
-          text: `Page ${currentPage + 1}/${groupedArr.length}`,
-          iconURL: message.guild.iconURL({ dynamic: true }),
-        });
+        .setFooter({ text: `Page ${currentPage + 1}/${groupedArr.length}` });
 
       const row = new MessageActionRow().addComponents([
         buttonPrevious.setDisabled(true),
@@ -175,6 +173,6 @@ module.exports = {
 
         msg.edit({ embeds: [embed], components: [disabled] });
       });
-    }
+    });
   },
 };

@@ -38,6 +38,7 @@ module.exports = {
         content: 'Cannot find that user!',
         ephemeral: true,
       });
+
     if (member.user.bot)
       return interaction.reply({
         content: 'Ngapain nyobain ke bot dah, iseng amad 😭😭',
