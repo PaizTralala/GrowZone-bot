@@ -11,6 +11,6 @@ Feel free if you want to contribute for this project, but before you contribute 
 - [x] DM users when subscription `ends | extended | added`
 - [x] Command list / Help Menu
 - [x] Slash Commands
-- [ ] Button Interaction
+- [x] Button Interaction
 - [ ] Auto Payment detection by DiscordWebhook
 - [ ] Migrating DB to Mongoose (not really important for now)
