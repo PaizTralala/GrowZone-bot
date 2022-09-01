@@ -284,10 +284,7 @@ module.exports = async (client) => {
 
           const premiumEndsInFormatted = Math.ceil(premiumUserExpDate / 1000);
 
-          console.log(nowDateMS.between(oneDayBeforeEnd, extraFiveSeconds));
           if (nowDateMS.between(oneDayBeforeEnd, extraFiveSeconds)) {
-            console.log('PREMIUM REMINDER');
-
             logChannel.send({
               embeds: [
                 embed
