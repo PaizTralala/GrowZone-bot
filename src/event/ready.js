@@ -284,7 +284,10 @@ module.exports = async (client) => {
 
           const premiumEndsInFormatted = Math.ceil(premiumUserExpDate / 1000);
 
+          console.log(nowDateMS.between(oneDayBeforeEnd, extraFiveSeconds));
           if (nowDateMS.between(oneDayBeforeEnd, extraFiveSeconds)) {
+            console.log('PREMIUM REMINDER');
+
             logChannel.send({
               embeds: [
                 embed
@@ -337,7 +340,7 @@ module.exports = async (client) => {
   }, 5000);
 };
 
-Number.prototype.between = (a, b) => {
+Number.prototype.between = function (a, b) {
   const min = Math.min.apply(Math, [a, b]);
   const max = Math.max.apply(Math, [a, b]);
 
